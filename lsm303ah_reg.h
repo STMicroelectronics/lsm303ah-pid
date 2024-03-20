@@ -1224,9 +1224,9 @@ int32_t lsm303ah_mg_int_gen_source_get(const stmdev_ctx_t *ctx,
                                        lsm303ah_int_source_reg_m_t *val);
 
 int32_t lsm303ah_mg_int_gen_threshold_set(const stmdev_ctx_t *ctx,
-                                         uint16_t val);
+                                          uint16_t val);
 int32_t lsm303ah_mg_int_gen_threshold_get(const stmdev_ctx_t *ctx,
-                                         uint16_t *val);
+                                          uint16_t *val);
 
 typedef enum
 {

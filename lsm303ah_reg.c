@@ -52,7 +52,10 @@ int32_t __weak lsm303ah_read_reg(const stmdev_ctx_t *ctx, uint8_t reg,
 {
   int32_t ret;
 
-  if (ctx == NULL) return -1;
+  if (ctx == NULL)
+  {
+    return -1;
+  }
 
   ret = ctx->read_reg(ctx->handle, reg, data, len);
 
@@ -75,7 +78,10 @@ int32_t __weak lsm303ah_write_reg(const stmdev_ctx_t *ctx, uint8_t reg,
 {
   int32_t ret;
 
-  if (ctx == NULL) return -1;
+  if (ctx == NULL)
+  {
+    return -1;
+  }
 
   ret = ctx->write_reg(ctx->handle, reg, data, len);
 
@@ -2580,7 +2586,7 @@ int32_t lsm303ah_mg_int_gen_source_get(const stmdev_ctx_t *ctx,
   *
   */
 int32_t lsm303ah_mg_int_gen_threshold_set(const stmdev_ctx_t *ctx,
-                                         uint16_t val)
+                                          uint16_t val)
 {
   uint8_t buff[2];
   int32_t ret;
@@ -2603,7 +2609,7 @@ int32_t lsm303ah_mg_int_gen_threshold_set(const stmdev_ctx_t *ctx,
   *
   */
 int32_t lsm303ah_mg_int_gen_threshold_get(const stmdev_ctx_t *ctx,
-                                         uint16_t *val)
+                                          uint16_t *val)
 {
   uint8_t buff[2];
   int32_t ret;
