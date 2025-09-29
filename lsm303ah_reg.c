@@ -237,6 +237,9 @@ int32_t lsm303ah_xl_block_data_update_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL1_A, (uint8_t *)&ctrl1_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl1_a.bdu;
 
   return ret;
@@ -285,6 +288,9 @@ int32_t lsm303ah_mg_block_data_update_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_c_m.bdu;
 
   return ret;
@@ -333,6 +339,8 @@ int32_t lsm303ah_mg_data_format_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (cfg_reg_c_m.ble)
   {
@@ -392,6 +400,8 @@ int32_t lsm303ah_xl_full_scale_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL1_A, (uint8_t *)&ctrl1_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (ctrl1_a.fs)
   {
@@ -460,6 +470,8 @@ int32_t lsm303ah_xl_data_rate_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL1_A, (uint8_t *)&ctrl1_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch ((ctrl1_a.hf_odr << 4) + ctrl1_a.odr)
   {
@@ -598,6 +610,9 @@ int32_t lsm303ah_xl_flag_data_ready_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STATUS_A, (uint8_t *)&status_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = status_a.drdy;
 
   return ret;
@@ -618,6 +633,9 @@ int32_t lsm303ah_mg_data_ready_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STATUS_REG_M,
                           (uint8_t *)&status_reg_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = status_reg_m.zyxda;
 
   return ret;
@@ -638,6 +656,9 @@ int32_t lsm303ah_mg_data_ovr_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STATUS_REG_M,
                           (uint8_t *)&status_reg_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = status_reg_m.zyxor;
 
   return ret;
@@ -689,6 +710,9 @@ int32_t lsm303ah_mg_user_offset_get(const stmdev_ctx_t *ctx, int16_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_OFFSET_X_REG_L_M, buff, 6);
+
+  if (ret != 0) { return ret; }
+
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -742,6 +766,8 @@ int32_t lsm303ah_mg_operating_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (cfg_reg_a_m.md)
   {
@@ -808,6 +834,8 @@ int32_t lsm303ah_mg_data_rate_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (cfg_reg_a_m.odr)
   {
@@ -879,6 +907,8 @@ int32_t lsm303ah_mg_power_mode_get(const stmdev_ctx_t *ctx,
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (cfg_reg_a_m.lp)
   {
     case LSM303AH_MG_HIGH_RESOLUTION:
@@ -940,6 +970,9 @@ int32_t lsm303ah_mg_offset_temp_comp_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_a_m.comp_temp_en;
 
   return ret;
@@ -988,6 +1021,8 @@ int32_t lsm303ah_mg_set_rst_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_B_M,
                           (uint8_t *)&cfg_reg_b_m, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (cfg_reg_b_m.set_rst)
   {
@@ -1060,6 +1095,9 @@ int32_t lsm303ah_mg_set_rst_sensor_single_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_B_M,
                           (uint8_t *)&cfg_reg_b_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_b_m.off_canc_one_shot;
 
   return ret;
@@ -1129,6 +1167,9 @@ int32_t lsm303ah_acceleration_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_OUT_X_L_A, buff, 6);
+
+  if (ret != 0) { return ret; }
+
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -1153,6 +1194,9 @@ int32_t lsm303ah_magnetic_raw_get(const stmdev_ctx_t *ctx, int16_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_OUTX_L_REG_M, buff, 6);
+
+  if (ret != 0) { return ret; }
+
   val[0] = (int16_t)buff[1];
   val[0] = (val[0] * 256) + (int16_t)buff[0];
   val[1] = (int16_t)buff[3];
@@ -1177,6 +1221,9 @@ int32_t lsm303ah_number_of_steps_get(const stmdev_ctx_t *ctx, uint16_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STEP_COUNTER_L_A, buff, 2);
+
+  if (ret != 0) { return ret; }
+
   *val = buff[1];
   *val = (*val * 256U) +  buff[0];
 
@@ -1270,6 +1317,9 @@ int32_t lsm303ah_xl_auto_increment_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl2_a.if_add_inc;
 
   return ret;
@@ -1357,6 +1407,9 @@ int32_t lsm303ah_xl_reset_get(const stmdev_ctx_t *ctx, uint8_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl2_a.soft_reset;
 
   return ret;
@@ -1403,6 +1456,9 @@ int32_t lsm303ah_mg_reset_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_a_m.soft_rst;
 
   return ret;
@@ -1446,6 +1502,9 @@ int32_t lsm303ah_xl_boot_get(const stmdev_ctx_t *ctx, uint8_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl2_a.boot;
 
   return ret;
@@ -1492,6 +1551,9 @@ int32_t lsm303ah_mg_boot_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_A_M,
                           (uint8_t *)&cfg_reg_a_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_a_m.reboot;
 
   return ret;
@@ -1537,6 +1599,8 @@ int32_t lsm303ah_xl_self_test_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (ctrl3_a.st)
   {
@@ -1601,6 +1665,9 @@ int32_t lsm303ah_mg_self_test_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_c_m.self_test;
 
   return ret;
@@ -1646,6 +1713,8 @@ int32_t lsm303ah_xl_data_ready_mode_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL5_A, (uint8_t *)&ctrl5_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (ctrl5_a.drdy_pulsed)
   {
@@ -1719,6 +1788,8 @@ int32_t lsm303ah_xl_hp_path_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (ctrl2_a.fds_slope)
   {
     case LSM303AH_XL_HP_INTERNAL_ONLY:
@@ -1780,6 +1851,8 @@ int32_t lsm303ah_mg_low_pass_bandwidth_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_B_M,
                           (uint8_t *)&cfg_reg_b_m, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (cfg_reg_b_m.lpf)
   {
@@ -1853,6 +1926,8 @@ int32_t lsm303ah_xl_spi_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (ctrl2_a.sim)
   {
     case LSM303AH_XL_SPI_4_WIRE:
@@ -1911,6 +1986,8 @@ int32_t lsm303ah_xl_i2c_interface_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL2_A, (uint8_t *)&ctrl2_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (ctrl2_a.i2c_disable)
   {
@@ -1974,6 +2051,8 @@ int32_t lsm303ah_mg_i2c_interface_get(const stmdev_ctx_t *ctx,
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (cfg_reg_c_m.i2c_dis)
   {
     case LSM303AH_MG_I2C_ENABLE:
@@ -2035,6 +2114,8 @@ int32_t lsm303ah_xl_cs_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_CTRL_A,
                           (uint8_t *)&fifo_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (fifo_ctrl_a.if_cs_pu_dis)
   {
@@ -2108,6 +2189,8 @@ int32_t lsm303ah_xl_pin_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (ctrl3_a.pp_od)
   {
     case LSM303AH_XL_PUSH_PULL:
@@ -2167,6 +2250,8 @@ int32_t lsm303ah_xl_pin_polarity_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (ctrl3_a.h_lactive)
   {
     case LSM303AH_XL_ACTIVE_HIGH:
@@ -2225,6 +2310,8 @@ int32_t lsm303ah_xl_int_notification_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (ctrl3_a.lir)
   {
@@ -2305,6 +2392,8 @@ int32_t lsm303ah_xl_pin_int1_route_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL4_A, (uint8_t *)&ctrl4_a, 1);
+  ret += lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_DUR_A,
+                          (uint8_t *)&wake_up_dur_a, 1);
 
   if (ret == 0)
   {
@@ -2315,15 +2404,10 @@ int32_t lsm303ah_xl_pin_int1_route_get(const stmdev_ctx_t *ctx,
     val->int1_ff            = ctrl4_a.int1_ff;
     val->int1_wu            = ctrl4_a.int1_wu;
     val->int1_s_tap         = ctrl4_a.int1_s_tap;
+
+    val->int1_fss7          = wake_up_dur_a.int1_fss7;
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_DUR_A,
-                            (uint8_t *)&wake_up_dur_a, 1);
-  }
-
-  val->int1_fss7 = wake_up_dur_a.int1_fss7;
 
   return ret;
 }
@@ -2373,6 +2457,9 @@ int32_t lsm303ah_xl_pin_int2_route_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL5_A, (uint8_t *)&ctrl5_a, 1);
+
+  if (ret != 0) { return ret; }
+
   val->int2_boot     = ctrl5_a.int2_boot;
   val->int2_tilt     = ctrl5_a.int2_tilt;
   val->int2_sig_mot  = ctrl5_a.int2_sig_mot;
@@ -2421,6 +2508,9 @@ int32_t lsm303ah_xl_all_on_int1_get(const stmdev_ctx_t *ctx, uint8_t *val)
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL5_A, (uint8_t *)&ctrl5_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl5_a.int2_on_int1;
 
   return ret;
@@ -2467,6 +2557,9 @@ int32_t lsm303ah_mg_drdy_on_pin_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_c_m.int_mag;
 
   return ret;
@@ -2513,6 +2606,9 @@ int32_t lsm303ah_mg_int_on_pin_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_C_M,
                           (uint8_t *)&cfg_reg_c_m, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = cfg_reg_c_m.int_mag_pin;
 
   return ret;
@@ -2614,6 +2710,9 @@ int32_t lsm303ah_mg_int_gen_threshold_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_INT_THS_L_REG_M, buff, 2);
+
+  if (ret != 0) { return ret; }
+
   *val = buff[1];
   *val = (*val * 256U) +  buff[0];
 
@@ -2693,6 +2792,8 @@ int32_t lsm303ah_mg_offset_int_conf_get(const stmdev_ctx_t *ctx,
   ret = lsm303ah_read_reg(ctx, LSM303AH_CFG_REG_B_M,
                           (uint8_t *)&cfg_reg_b_m, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (cfg_reg_b_m.int_on_dataoff)
   {
     case LSM303AH_MG_CHECK_BEFORE:
@@ -2753,6 +2854,9 @@ int32_t lsm303ah_xl_wkup_threshold_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_THS_A,
                           (uint8_t *)&wake_up_ths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = wake_up_ths_a.wu_ths;
 
   return ret;
@@ -2799,6 +2903,9 @@ int32_t lsm303ah_xl_wkup_dur_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_DUR_A,
                           (uint8_t *)&wake_up_dur_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = wake_up_dur_a.wu_dur;
 
   return ret;
@@ -2857,6 +2964,9 @@ int32_t lsm303ah_xl_sleep_mode_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_THS_A,
                           (uint8_t *)&wake_up_ths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = wake_up_ths_a.sleep_on;
 
   return ret;
@@ -2903,6 +3013,9 @@ int32_t lsm303ah_xl_act_sleep_dur_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_DUR_A,
                           (uint8_t *)&wake_up_dur_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = wake_up_dur_a.sleep_dur;
 
   return ret;
@@ -2961,6 +3074,9 @@ int32_t lsm303ah_xl_tap_detection_on_z_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl3_a.tap_z_en;
 
   return ret;
@@ -3006,6 +3122,9 @@ int32_t lsm303ah_xl_tap_detection_on_y_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl3_a.tap_y_en;
 
   return ret;
@@ -3051,6 +3170,9 @@ int32_t lsm303ah_xl_tap_detection_on_x_get(const stmdev_ctx_t *ctx,
   int32_t ret;
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_CTRL3_A, (uint8_t *)&ctrl3_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = ctrl3_a.tap_x_en;
 
   return ret;
@@ -3097,6 +3219,9 @@ int32_t lsm303ah_xl_tap_threshold_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_TAP_6D_THS_A,
                           (uint8_t *)&tap_6d_ths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = tap_6d_ths_a.tap_ths;
 
   return ret;
@@ -3151,6 +3276,9 @@ int32_t lsm303ah_xl_tap_shock_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_INT_DUR_A,
                           (uint8_t *)&int_dur_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = int_dur_a.shock;
 
   return ret;
@@ -3205,6 +3333,9 @@ int32_t lsm303ah_xl_tap_quiet_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_INT_DUR_A,
                           (uint8_t *)&int_dur_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = int_dur_a.quiet;
 
   return ret;
@@ -3259,6 +3390,9 @@ int32_t lsm303ah_xl_tap_dur_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_INT_DUR_A,
                           (uint8_t *)&int_dur_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = int_dur_a.lat;
 
   return ret;
@@ -3307,6 +3441,8 @@ int32_t lsm303ah_xl_tap_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_THS_A,
                           (uint8_t *)&wake_up_ths_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (wake_up_ths_a.single_double_tap)
   {
@@ -3401,6 +3537,8 @@ int32_t lsm303ah_xl_6d_threshold_get(const stmdev_ctx_t *ctx,
   ret = lsm303ah_read_reg(ctx, LSM303AH_TAP_6D_THS_A,
                           (uint8_t *)&tap_6d_ths_a, 1);
 
+  if (ret != 0) { return ret; }
+
   switch (tap_6d_ths_a._6d_ths)
   {
     case LSM303AH_XL_DEG_80:
@@ -3468,6 +3606,9 @@ int32_t lsm303ah_xl_4d_mode_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_TAP_6D_THS_A,
                           (uint8_t *)&tap_6d_ths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = tap_6d_ths_a._4d_en;
 
   return ret;
@@ -3560,12 +3701,10 @@ int32_t lsm303ah_xl_ff_dur_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_WAKE_UP_DUR_A,
                           (uint8_t *)&wake_up_dur_a, 1);
+  ret += lsm303ah_read_reg(ctx, LSM303AH_FREE_FALL_A,
+                          (uint8_t *)&free_fall_a, 1);
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_read_reg(ctx, LSM303AH_FREE_FALL_A,
-                            (uint8_t *)&free_fall_a, 1);
-  }
+  if (ret != 0) { return ret; }
 
   *val = (wake_up_dur_a.ff_dur << 5) + free_fall_a.ff_dur;
 
@@ -3613,6 +3752,9 @@ int32_t lsm303ah_xl_ff_threshold_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FREE_FALL_A,
                           (uint8_t *)&free_fall_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = free_fall_a.ff_ths;
 
   return ret;
@@ -3675,6 +3817,9 @@ int32_t lsm303ah_xl_fifo_xl_module_batch_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_CTRL_A,
                           (uint8_t *)&fifo_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = fifo_ctrl_a.module_to_fifo;
 
   return ret;
@@ -3723,6 +3868,8 @@ int32_t lsm303ah_xl_fifo_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_CTRL_A,
                           (uint8_t *)&fifo_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (fifo_ctrl_a.fmode)
   {
@@ -3805,6 +3952,9 @@ int32_t lsm303ah_xl_fifo_full_flag_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_SRC_A,
                           (uint8_t *)&fifo_src_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = fifo_src_a.diff;
 
   return ret;
@@ -3825,6 +3975,9 @@ int32_t lsm303ah_xl_fifo_ovr_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_SRC_A,
                           (uint8_t *)&fifo_src_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = fifo_src_a.fifo_ovr;
 
   return ret;
@@ -3845,6 +3998,9 @@ int32_t lsm303ah_xl_fifo_wtm_flag_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_SRC_A,
                           (uint8_t *)&fifo_src_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = fifo_src_a.fth;
 
   return ret;
@@ -3867,10 +4023,10 @@ int32_t lsm303ah_xl_fifo_data_level_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_SRC_A,
                           (uint8_t *)&fifo_src_a, 1);
+  ret += lsm303ah_read_reg(ctx, LSM303AH_FIFO_SAMPLES_A, &fifo_sample_a, 1);
 
   if (ret == 0)
   {
-    ret = lsm303ah_read_reg(ctx, LSM303AH_FIFO_SAMPLES_A, &fifo_sample_a, 1);
     *val = fifo_src_a.diff;
     *val = *val << 8;
     *val += fifo_sample_a;
@@ -3951,6 +4107,9 @@ int32_t lsm303ah_xl_pedo_threshold_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STEP_COUNTER_MINTHS_A,
                           (uint8_t *)&step_counter_minths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = step_counter_minths_a.sc_mths;
 
   return ret;
@@ -3999,6 +4158,8 @@ int32_t lsm303ah_xl_pedo_full_scale_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STEP_COUNTER_MINTHS_A,
                           (uint8_t *)&step_counter_minths_a, 1);
+
+  if (ret != 0) { return ret; }
 
   switch (step_counter_minths_a.pedo4g)
   {
@@ -4061,6 +4222,9 @@ int32_t lsm303ah_xl_pedo_step_reset_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_STEP_COUNTER_MINTHS_A,
                           (uint8_t *)&step_counter_minths_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = step_counter_minths_a.rst_nstep;
 
   return ret;
@@ -4082,6 +4246,9 @@ int32_t lsm303ah_xl_pedo_step_detect_flag_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CK_GATE_A,
                           (uint8_t *)&func_ck_gate_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ck_gate_a.step_detect;
 
   return ret;
@@ -4128,6 +4295,9 @@ int32_t lsm303ah_xl_pedo_sens_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CTRL_A,
                           (uint8_t *)&func_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ctrl_a.step_cnt_on;
 
   return ret;
@@ -4162,10 +4332,7 @@ int32_t lsm303ah_xl_pedo_debounce_steps_set(const stmdev_ctx_t *ctx,
                              (uint8_t *)&pedo_deb_reg_a, 1);
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
-  }
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4195,8 +4362,9 @@ int32_t lsm303ah_xl_pedo_debounce_steps_get(const stmdev_ctx_t *ctx,
   if (ret == 0)
   {
     *val = pedo_deb_reg_a.deb_step;
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
   }
+
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4231,10 +4399,7 @@ int32_t lsm303ah_xl_pedo_timeout_set(const stmdev_ctx_t *ctx, uint8_t val)
                              (uint8_t *)&pedo_deb_reg_a, 1);
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
-  }
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4265,8 +4430,9 @@ int32_t lsm303ah_xl_pedo_timeout_get(const stmdev_ctx_t *ctx, uint8_t *val)
   if (ret == 0)
   {
     *val = pedo_deb_reg_a.deb_time;
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
   }
+
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4292,10 +4458,7 @@ int32_t lsm303ah_xl_pedo_steps_period_set(const stmdev_ctx_t *ctx,
     ret = lsm303ah_write_reg(ctx, LSM303AH_STEP_COUNT_DELTA_A, buff, 1);
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
-  }
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4321,10 +4484,7 @@ int32_t lsm303ah_xl_pedo_steps_period_get(const stmdev_ctx_t *ctx,
     ret = lsm303ah_read_reg(ctx, LSM303AH_STEP_COUNT_DELTA_A, buff, 1);
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
-  }
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4358,6 +4518,9 @@ int32_t lsm303ah_xl_motion_data_ready_flag_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CK_GATE_A,
                           (uint8_t *)&func_ck_gate_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ck_gate_a.sig_mot_detect;
 
   return ret;
@@ -4404,6 +4567,9 @@ int32_t lsm303ah_xl_motion_sens_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CTRL_A,
                           (uint8_t *)&func_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ctrl_a.sign_mot_on;
 
   return ret;
@@ -4440,10 +4606,7 @@ int32_t lsm303ah_xl_motion_threshold_set(const stmdev_ctx_t *ctx,
     ret = lsm303ah_write_reg(ctx, LSM303AH_SM_THS_A, (uint8_t *)&sm_ths_a, 1);
   }
 
-  if (ret == 0)
-  {
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
-  }
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4476,8 +4639,9 @@ int32_t lsm303ah_xl_motion_threshold_get(const stmdev_ctx_t *ctx,
   if (ret == 0)
   {
     *val = sm_ths_a.sm_ths;
-    ret = lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
   }
+
+  ret += lsm303ah_xl_mem_bank_set(ctx, LSM303AH_XL_USER_BANK);
 
   return ret;
 }
@@ -4511,6 +4675,9 @@ int32_t lsm303ah_xl_tilt_data_ready_flag_get(const stmdev_ctx_t *ctx,
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CK_GATE_A,
                           (uint8_t *)&func_ck_gate_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ck_gate_a.tilt_int;
 
   return ret;
@@ -4557,6 +4724,9 @@ int32_t lsm303ah_xl_tilt_sens_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CTRL_A,
                           (uint8_t *)&func_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ctrl_a.tilt_on;
 
   return ret;
@@ -4616,6 +4786,9 @@ int32_t lsm303ah_xl_module_sens_get(const stmdev_ctx_t *ctx, uint8_t *val)
 
   ret = lsm303ah_read_reg(ctx, LSM303AH_FUNC_CTRL_A,
                           (uint8_t *)&func_ctrl_a, 1);
+
+  if (ret != 0) { return ret; }
+
   *val = func_ctrl_a.module_on;
 
   return ret;
